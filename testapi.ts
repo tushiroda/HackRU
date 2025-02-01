@@ -7,12 +7,11 @@ async function getData() {
       {
         method: "POST",
         headers: {
-          Authorization:
-            `Bearer ${process.env.APIKEY}`,
+          Authorization: `Bearer ${process.env.APIKEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "openai/gpt-4o-mini",
+          model: "openai/gpt-3.5-turbo",
           messages: [
             {
               role: "user",
@@ -24,7 +23,7 @@ async function getData() {
     );
 
     const json = await response.json();
-    console.log(json.choices[0].message);
+    console.log(json.choices[0].message.content);
   } catch (error) {
     console.error(error.message);
   }
