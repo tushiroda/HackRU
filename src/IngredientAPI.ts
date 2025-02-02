@@ -14,7 +14,7 @@ export async function IngredientAPI(dish) {
           messages: [
             {
               role: "user",
-              content: `What are the ingredients in ${dish}. List only the ingredients and amounts needed. Do not split into categories, just compile all ingredients needed into one list with no further comments.`,
+              content: `What are the ingredients in ${dish}. List only the ingredients and amounts needed. Do not split into categories, just compile all ingredients needed into one list with no further comments. List each ingredient with double dashes as bullet points.`,
             },
           ],
         }),
@@ -22,7 +22,7 @@ export async function IngredientAPI(dish) {
     );
 
     const json = await response.json();
-    console.log(json.choices[0].message.content);
+    return json.choices[0].message.content;
   } catch (error) {
     console.error(error.message);
   }

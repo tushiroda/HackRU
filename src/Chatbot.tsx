@@ -31,7 +31,10 @@ function Chatbot() {
         .trim()
         .split("--");
       ingredients[0] = "INGREDIENTS:";
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
       setIngredientsList(
         ingredients.map((ingredient, index) => (
           <div key={index}>
@@ -40,13 +43,17 @@ function Chatbot() {
           </div>
         ))
       );
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     } catch (error) {
       console.error("Error fetching ingredients:", error);
     }
   };
 
   return (
+<<<<<<< HEAD
     <div className="h-100">
       <Navbar className="topbar d-flex justify-content-center align-items-center">
         <Container className="w-100 mx-auto">
@@ -96,11 +103,29 @@ function Chatbot() {
           </button>
         </div>
       </div>
+=======
+    <div className="container">
+      <h1>Declare Your Desired Dish!</h1>
+      <input
+        type="text"
+        id="dishName"
+        value={dishName}
+        onChange={(e) => setDishName(e.target.value)}
+        placeholder="Enter dish name..."
+      />
+      <button id="getIngredientsBtn" onClick={handleClick}>
+        Get Ingredients
+      </button>
+>>>>>>> main
       <div id="ingredientsList" className="ingredients-list">
         {ingredientsList}
       </div>
     </div>
+<<<<<<< HEAD
   )
+=======
+  );
+>>>>>>> main
 }
 
 export default Chatbot;
