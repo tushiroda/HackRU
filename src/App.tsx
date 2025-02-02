@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./Chatbot.css";
 import { IngredientAPI } from "./IngredientAPI.ts";
 
 var shopping = new Set(["SHOPPING LIST:"]);
 
 function App() {
-
   function updateShoppingList(inputArray: string[]): void {
     for (let i = 0; i < inputArray.length; i++) {
       const temp = inputArray[i].trim();
@@ -16,10 +15,10 @@ function App() {
       }
     }
   }
-  
+
   const [dishName, setDishName] = useState("");
-  const [ingredientsList, setIngredientsList] = useState("");
-  const [shoppingList, setShoppingList] = useState("");
+  const [ingredientsList, setIngredientsList] = useState<React.JSX.Element[]>([]);
+  const [shoppingList, setShoppingList] = useState<React.JSX.Element[]>([]);
 
   const handleClick = async () => {
     if (!dishName) {
@@ -28,10 +27,10 @@ function App() {
     }
 
     try {
-      const sections = String(await IngredientAPI(dishName)).trim().split("===");
-      var ingredients = sections[0]
+      const sections = String(await IngredientAPI(dishName))
         .trim()
-        .split("--");
+        .split("===");
+      var ingredients = sections[0].trim().split("--");
       ingredients[0] = "INGREDIENTS:";
       setIngredientsList(
         ingredients.map((ingredient, index) => (
@@ -41,7 +40,7 @@ function App() {
           </div>
         ))
       );
-      
+
       updateShoppingList(String(sections[1]).trim().split("--"));
       setShoppingList(
         Array.from(shopping).map((listItem, index) => (
@@ -51,7 +50,6 @@ function App() {
           </div>
         ))
       );
-
     } catch (error) {
       console.error("Error fetching ingredients:", error);
     }
@@ -73,7 +71,7 @@ function App() {
       <div id="ingredientsList" className="ingredients-list">
         {ingredientsList}
       </div>
-      <br/>
+      <br />
       <div id="shoppingList" className="shopping-list">
         {shoppingList}
       </div>
