@@ -76,20 +76,16 @@ button:hover {
   background: #7DD049;
 }
 
-.inputQuery {
-  padding-top: 50px;
+#dishName {
+  margin-left: 200px;
   width: 50%;
   height: 100px;
 }
 
-.prompt {
-  height: 75px;
-}
-
-.getDish {
-  position: absolute;
-  width: 100px;
-  right: 500px;
+.getIngredientsBtn {
+  position: relative;
+  width: 200px;
+  right: 225px;
 }
 
 .group {
@@ -99,5 +95,10 @@ button:hover {
 
 h1 {
   font-size: 128px !important;
+  color: #225304 !important;
+}
+
+.navbar-brand{
+  font-size: 24px !important;
   color: #225304 !important;
 }
