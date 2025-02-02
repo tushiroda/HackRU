@@ -14,7 +14,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { NavbarBrand } from "react-bootstrap";
+import { NavbarBrand, NavItem } from "react-bootstrap";
 
 var shopping = new Set();
 
@@ -79,6 +79,9 @@ function Chatbot() {
           <Nav className="d-flex justify-content-between align-items-center flex-row mx-auto w-100">
             <div className="d-flex align-items-center">
               <NavbarBrand href="/"><h2>BYTE2BITE</h2></NavbarBrand>
+              <Navbar.Text>
+                <a href="/">Past Bites</a>
+              </Navbar.Text>            
             </div>
             <div className="d-flex flex-row">
               <NavDropdown title={<img src={cart} width="48" alt="Cart" />} drop="down-centered">
