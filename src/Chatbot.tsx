@@ -16,9 +16,25 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavbarBrand } from "react-bootstrap";
 
+var shopping = new Set();
+
 function Chatbot() {
+  function updateShoppingList(inputArray: string[]): void {
+    for (let i = 0; i < inputArray.length; i++) {
+      const temp = inputArray[i].trim();
+      if (temp === "") {
+        continue;
+      } else {
+        shopping.add(temp);
+      }
+    }
+  }
+
   const [dishName, setDishName] = useState("");
-  const [ingredientsList, setIngredientsList] = useState("");
+  const [ingredientsList, setIngredientsList] = useState<React.JSX.Element[]>([]);
+  const [shoppingList, setShoppingList] = useState<React.JSX.Element[]>([]);
+  const [brand, setBrand] = useState("BYTE2BITE");
+  const [chatting, setChatting] = useState(false);
 
   const handleClick = async () => {
     if (!dishName) {
@@ -27,14 +43,26 @@ function Chatbot() {
     }
 
     try {
-      var ingredients = String(await IngredientAPI(dishName))
+      setChatting(true);
+      const sections = String(await IngredientAPI(dishName))
         .trim()
-        .split("--");
+        .split("===");
+      var ingredients = sections[0].trim().split("--");
       ingredients[0] = "INGREDIENTS:";
       setIngredientsList(
         ingredients.map((ingredient, index) => (
           <div key={index}>
             {ingredient}
+            <br />
+          </div>
+        ))
+      );
+
+      updateShoppingList(String(sections[1]).trim().split("--"));
+      setShoppingList(
+        Array.from(shopping).map((listItem, index) => (
+          <div key={index}>
+            {listItem}
             <br />
           </div>
         ))
@@ -54,6 +82,13 @@ function Chatbot() {
             </div>
             <div className="d-flex flex-row">
               <NavDropdown title={<img src={cart} width="48" alt="Cart" />} drop="down-centered">
+                {shoppingList.map((listItem, index) => {
+                  return (
+                    <NavDropdown.Item key={index}>
+                      {listItem}
+                    </NavDropdown.Item>
+                  );
+                })}
               </NavDropdown>
               <NavDropdown title={<img src={menu} alt="Menu" />} drop="down-centered"
                 id="collapsible-nav-dropdown" >
@@ -80,7 +115,8 @@ function Chatbot() {
         </Container>
       </Navbar>
       <div className="d-flex flex-column justify-content-center align-items-center h-75">
-        <h1>BYTE2BITE</h1>
+      {brand && !chatting ? <h1>{brand}</h1> : null}
+      {ingredientsList && chatting ? <div id="ingredientsList" className="ingredients-list">{ingredientsList}</div> : null}
         <div className="d-flex flex-row w-100 justify-content-center align-items-center">
           <input
             type="text"
@@ -93,9 +129,6 @@ function Chatbot() {
             Get Ingredients
           </button>
         </div>
-      </div>
-      <div id="ingredientsList" className="ingredients-list">
-        {ingredientsList}
       </div>
     </div>
   );
