@@ -2,9 +2,24 @@ import React, { useState } from "react";
 import "./App.css";
 import { IngredientAPI } from "./IngredientAPI.ts";
 
+var shopping = new Set(["SHOPPING LIST:"]);
+
 function App() {
+
+  function updateShoppingList(inputArray: string[]): void {
+    for (let i = 0; i < inputArray.length; i++) {
+      const temp = inputArray[i].trim();
+      if (temp === "") {
+        continue;
+      } else {
+        shopping.add(temp);
+      }
+    }
+  }
+  
   const [dishName, setDishName] = useState("");
   const [ingredientsList, setIngredientsList] = useState("");
+  const [shoppingList, setShoppingList] = useState("");
 
   const handleClick = async () => {
     if (!dishName) {
@@ -13,7 +28,8 @@ function App() {
     }
 
     try {
-      var ingredients = String(await IngredientAPI(dishName))
+      const sections = String(await IngredientAPI(dishName)).trim().split("===");
+      var ingredients = sections[0]
         .trim()
         .split("--");
       ingredients[0] = "INGREDIENTS:";
@@ -25,6 +41,17 @@ function App() {
           </div>
         ))
       );
+      
+      updateShoppingList(String(sections[1]).trim().split("--"));
+      setShoppingList(
+        Array.from(shopping).map((listItem, index) => (
+          <div key={index}>
+            {listItem}
+            <br />
+          </div>
+        ))
+      );
+
     } catch (error) {
       console.error("Error fetching ingredients:", error);
     }
@@ -45,6 +72,10 @@ function App() {
       </button>
       <div id="ingredientsList" className="ingredients-list">
         {ingredientsList}
+      </div>
+      <br/>
+      <div id="shoppingList" className="shopping-list">
+        {shoppingList}
       </div>
     </div>
   );
