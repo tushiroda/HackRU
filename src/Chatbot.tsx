@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./Chatbot.css";
 import { IngredientAPI } from "./IngredientAPI.ts";
 
-function App() {
+function Chatbot() {
   const [dishName, setDishName] = useState("");
   const [ingredientsList, setIngredientsList] = useState("");
 
@@ -50,4 +50,4 @@ function App() {
   );
 }
 
-export default App;
+export default Chatbot;
