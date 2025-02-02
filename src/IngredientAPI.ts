@@ -1,4 +1,4 @@
-export async function getIngredients(dish) {
+export async function IngredientAPI(dish) {
   try {
     let response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
