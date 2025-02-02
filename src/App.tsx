@@ -1,23 +1,32 @@
-import React , {useState}from "react";
+import React, { useState } from "react";
 import "./App.css";
-import {IngredientAPI} from "./IngredientAPI.ts";
+import { IngredientAPI } from "./IngredientAPI.ts";
 
 function App() {
-  const [dishName, setDishName] = useState('');
-  const [ingredientsList, setIngredientsList] = useState('');
+  const [dishName, setDishName] = useState("");
+  const [ingredientsList, setIngredientsList] = useState("");
 
   const handleClick = async () => {
     if (!dishName) {
-      alert('Please enter a dish name!');
+      alert("Please enter a dish name!");
       return;
     }
 
     try {
-      var ingredients = String(await IngredientAPI(dishName)).trim().split('--');
+      var ingredients = String(await IngredientAPI(dishName))
+        .trim()
+        .split("--");
       ingredients[0] = "INGREDIENTS:";
-      setIngredientsList(ingredients.map((ingredient, index) => <div key={index}>{ingredient}<br/></div>));
+      setIngredientsList(
+        ingredients.map((ingredient, index) => (
+          <div key={index}>
+            {ingredient}
+            <br />
+          </div>
+        ))
+      );
     } catch (error) {
-        console.error('Error fetching ingredients:', error);
+      console.error("Error fetching ingredients:", error);
     }
   };
 
@@ -31,8 +40,12 @@ function App() {
         onChange={(e) => setDishName(e.target.value)}
         placeholder="Enter dish name..."
       />
-      <button id="getIngredientsBtn" onClick={handleClick}>Get Ingredients</button>
-      <div id="ingredientsList" className="ingredients-list">{ingredientsList}</div>
+      <button id="getIngredientsBtn" onClick={handleClick}>
+        Get Ingredients
+      </button>
+      <div id="ingredientsList" className="ingredients-list">
+        {ingredientsList}
+      </div>
     </div>
   );
 }
