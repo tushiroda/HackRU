@@ -1,6 +1,13 @@
+html, #root {
+  width: 100%;
+  height: 100%;
+  background: #DAECC1;
+
+}
+
 body {
+  width: 100%;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
   margin: 0;
   padding: 0;
   display: flex;
@@ -59,4 +66,39 @@ button:hover {
 
 .ingredients-list li {
   margin: 5px 0;
+}
+
+.topbar {
+  height: 100px;
+  width: 100%;
+  position:sticky;
+  top: 0;
+  background: #7DD049;
+}
+
+#dishName {
+  margin-left: 200px;
+  width: 50%;
+  height: 100px;
+}
+
+.getIngredientsBtn {
+  position: relative;
+  width: 200px;
+  right: 225px;
+}
+
+.group {
+  margin: 0px;
+  padding: 0px;
+}
+
+h1 {
+  font-size: 128px !important;
+  color: #225304 !important;
+}
+
+.navbar-brand{
+  font-size: 24px !important;
+  color: #225304 !important;
 }
