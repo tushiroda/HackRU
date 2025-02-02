@@ -93,6 +93,11 @@ button:hover {
   position: relative;
   width: 200px;
   right: 225px;
+  background:#7DD049
+}
+
+button:hover {
+  background: #589334;
 }
 
 .group {
